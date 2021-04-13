@@ -22,7 +22,4 @@ spec:
                 name: lake-uuids
             - configMapRef:
                 name: telegramupdater-config
-            command:
-            - python
-            - main.py
           restartPolicy: Never
