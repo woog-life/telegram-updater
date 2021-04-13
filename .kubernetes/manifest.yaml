@@ -1,0 +1,28 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: telegram-updater
+  namespace: wooglife
+spec:
+  schedule: "0 8 * * *"
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      template:
+        spec:
+          containers:
+          - name: telegram-updater
+            image: ghcr.io/woog-life/telegram-updater:{{TAG}}
+            envFrom:
+            - secretRef:
+                name: telegram-token
+            - configMapRef:
+                name: lake-uuids
+            - configMapRef:
+                name: telegramupdater-config
+            command:
+            - python
+            - main.py
+          restartPolicy: Never
