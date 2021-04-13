@@ -54,7 +54,7 @@ fn main() {
     for cid in notifier_chat_ids {
         result := bot.send_message({
             chat_id: cid,
-            text: "woog wassertemperatur: $content.data.precise_temperature °C"
+            text: "Der Woog hat eine Temperatur von: $content.data.precise_temperature °C"
         })
 
         results[cid] = result.from.id
