@@ -39,7 +39,8 @@ fn main() {
         exit(1)
     }
 
-    resp := http.get("https://api.woog.life/lake/$uuid") or {
+    url := "https://api.woog.life/lake/$uuid"
+    resp := http.get(url) or {
         eprintln("Failed to get http response")
         exit(1)
     }
