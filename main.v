@@ -22,7 +22,7 @@ fn main() {
     notifier_chat_ids := getenv("NOTIFIER_IDS").split(",").map(it.trim_space())
     alert_ids := getenv("TELEGRAM_ALERT_IDS").split(",").map(it.trim_space())
 
-    if token == "" {
+    if uuid == "" {
         eprintln("LARGE_WOOG_UUID is not defined in environment")
         exit(1)
     }
