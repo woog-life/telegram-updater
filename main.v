@@ -7,7 +7,7 @@ import dariotarantini.vgram
 struct Data {
     time string
     temperature int
-    precise_temperature string
+    precise_temperature string [json: preciseTemperature]
 }
 
 struct ApiResponse {
@@ -43,7 +43,7 @@ fn main() {
         eprintln("Failed to get http response")
         exit(1)
     }
-    text := resp.text.replace("preciseTemperature", "precise_temperature")
+    text := resp.text
     content := json.decode(ApiResponse, text) or {
         eprintln("Failed to decode response to ApiResponse object")
         exit(1)
