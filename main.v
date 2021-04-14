@@ -45,17 +45,19 @@ fn main() {
         exit(1)
     }
     text := resp.text
+
     content := json.decode(ApiResponse, text) or {
         eprintln("Failed to decode response to ApiResponse object")
         exit(1)
     }
 
+    temperature := content.data.precise_temperature
     bot := vgram.new_bot(token)
     mut results := map[string]int
     for cid in notifier_chat_ids {
         result := bot.send_message({
             chat_id: cid,
-            text: "Der Woog hat eine Temperatur von: $content.data.precise_temperature °C"
+            text: "Der Woog hat eine Temperatur von $temperature °C"
         })
 
         results[cid] = result.from.id
