@@ -5,13 +5,18 @@ WORKDIR /app
 COPY . .
 
 ENV VFLAGS="-cc gcc"
+ENV PATH /app:$PATH
 
-RUN apk add --no-cache git
-
-RUN ./vpkg install
-RUN v -prod main.v
+RUN apk add git
 
 RUN v version
+
+RUN git clone https://github.com/woog-life/vpkg
+RUN cd vpkg && v -prod . && cd ..
+
+RUN vpkg/vpkg install
+RUN v -prod main.v
+
 RUN ldd main
 
 FROM scratch
