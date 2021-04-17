@@ -1,0 +1,12 @@
+{
+   "version": "0.7.1",
+   "packages": [
+      {
+         "name": "vgram",
+         "version": "920989c54838d4109faed72d70d680b28ad3057d",
+         "url": "https://github.com/woog-life/vgram",
+         "method": "git",
+         "latest_commit": "920989c54838d4109faed72d70d680b28ad3057d"
+      }
+   ]
+}

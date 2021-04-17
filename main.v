@@ -2,7 +2,7 @@ module main
 
 import json
 import net.http
-import dariotarantini.vgram
+import vgram
 
 struct Data {
     time string

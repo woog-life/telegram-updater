@@ -1,0 +1,11 @@
+{
+    "name": "vlangbot",
+    "version": "1.0.0",
+    "author": [
+        "Torben Carstens <wooglife@carstens.tech>"
+    ],
+    "repo": "https://github.com/woog-life/telegram-updater",
+    "dependencies": [
+        "vgram"
+    ]
+}
