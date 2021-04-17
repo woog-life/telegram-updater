@@ -4,7 +4,7 @@ metadata:
   name: telegram-updater
   namespace: wooglife
 spec:
-  schedule: "15 6 * * *"
+  schedule: "0 19 * * *"
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 1
   jobTemplate:
