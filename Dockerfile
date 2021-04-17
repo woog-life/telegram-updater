@@ -8,7 +8,7 @@ ENV VFLAGS="-cc gcc"
 
 RUN apk add --no-cache git
 
-RUN v install dariotarantini.vgram
+RUN ./vpkg install
 RUN v -prod main.v
 
 RUN v version
