@@ -2,6 +2,7 @@ module main
 
 import json
 import net.http
+import os { getenv }
 import vgram
 
 struct Data {
