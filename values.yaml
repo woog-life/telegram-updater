@@ -1,0 +1,27 @@
+namespace: wooglife
+
+cronjob:
+  name: telegram-updater
+  image: ghcr.io/woog-life/telegram-updater:__TAG__
+  imagePullPolicy: Always
+  schedule: "CRON_TZ=UTC 0 20 * * */5"
+  backoffLimit: 0
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  restartPolicy: Never
+  labels:
+    app: telegram-updater
+  requests:
+    cpu: 100m
+    memory: 100Mi
+  limit:
+    cpu: 300m
+    memory: 300Mi
+
+configmap:
+  notifierIds: -1001397708243
+  alertIds: 139656428
+
+secret:
+  name: telegram-token
+  telegramToken: __TELEGRAM_TOKEN__
