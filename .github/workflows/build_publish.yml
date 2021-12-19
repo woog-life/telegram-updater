@@ -39,7 +39,7 @@ jobs:
     needs: lint
     steps:
       - uses: actions/checkout@v1
-      - run: sed -i -e "s/__TELEGRAM_TOKEN__/${{ secrets.BOT_TOKEN }}/g" values.yaml
+      - run: sed -i -e "s/__TELEGRAM_TOKEN__/${{ secrets.TELEGRAM_TOKEN }}/g" values.yaml
       # - run: sed -i -e "s/__TAG__/${GITHUB_SHA}/g" values.yaml
       - name: install helm chart
         uses: WyriHaximus/github-action-helm3@v2
