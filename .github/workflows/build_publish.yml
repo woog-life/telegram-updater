@@ -28,7 +28,6 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - run: sed -i -e "s/{{VERSION}}/${GITHUB_SHA}/g" telegram_bot/bot.py
       - name: Build the tagged Docker image
         run: docker build -t ghcr.io/woog-life/telegram-updater:${GITHUB_SHA} .
       - name: Push the tagged Docker image

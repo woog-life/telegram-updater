@@ -19,6 +19,7 @@ cronjob:
     memory: 300Mi
 
 configmap:
+  name: telegram-updater
   notifierIds: -1001397708243
   alertIds: 139656428
 
