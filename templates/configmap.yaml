@@ -4,5 +4,5 @@ metadata:
   name: {{ .Values.configmap.name }}
   namespace: {{ .Values.configmap.name }}
 data:
-  NOTIFIER_IDS: {{ .Values.configmap.notifierIds }}
-  TELEGRAM_ALERT_IDS: {{ .Values.configmap.alertIds }}
+  NOTIFIER_IDS: "{{ .Values.configmap.notifierIds }}"
+  TELEGRAM_ALERT_IDS: "{{ .Values.configmap.alertIds }}"

@@ -20,8 +20,8 @@ cronjob:
 
 configmap:
   name: telegram-updater
-  notifierIds: -1001397708243
-  alertIds: 139656428
+  notifierIds: "-1001397708243"
+  alertIds: "139656428"
 
 secret:
   name: telegram-updater-token
