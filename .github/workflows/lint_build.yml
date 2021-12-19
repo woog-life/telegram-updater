@@ -18,9 +18,9 @@ jobs:
         with:
           exec: helm lint --strict
 
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - name: Build the tagged Docker image
-        run: docker build -t ghcr.io/woog-life/telegram-updater:${GITHUB_SHA} .
+  # build:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v1
+  #     - name: Build the tagged Docker image
+  #       run: docker build -t ghcr.io/woog-life/telegram-updater:${GITHUB_SHA} .

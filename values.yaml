@@ -2,7 +2,7 @@ namespace: wooglife
 
 cronjob:
   name: telegram-updater
-  image: ghcr.io/woog-life/telegram-updater:__TAG__
+  image: ghcr.io/woog-life/telegram-updater:c899a9a23f894ffdddc0caaa7fdf2f2c49494055
   imagePullPolicy: Always
   schedule: "CRON_TZ=UTC 0 20 * * */5"
   backoffLimit: 0
