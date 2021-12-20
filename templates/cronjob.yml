@@ -29,6 +29,8 @@ spec:
                   name: {{ .Values.secret.name }}
               - configMapRef:
                   name: {{ .Values.configmap.name }}
+              - configMapRef:
+                  name: lake-uuids
             resources:
               requests:
                 cpu: {{ .Values.cronjob.requests.cpu }}
