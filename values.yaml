@@ -4,7 +4,7 @@ cronjob:
   name: telegram-updater
   image: ghcr.io/woog-life/telegram-updater:c899a9a23f894ffdddc0caaa7fdf2f2c49494055
   imagePullPolicy: Always
-  schedule: "CRON_TZ=0 20 * * 5"
+  schedule: "0 20 * * 5"
   backoffLimit: 0
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 1
