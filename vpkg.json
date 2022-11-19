@@ -4,6 +4,7 @@
     "author": [
         "Torben Carstens <wooglife@carstens.tech>"
     ],
+    "sources": ["https://vpm.best/registry.json"],
     "repo": "https://github.com/woog-life/telegram-updater",
     "dependencies": [
         "wooglife.vgram"
