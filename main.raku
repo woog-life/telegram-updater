@@ -67,7 +67,7 @@ sub isOldTemperature(TemperatureItem $item) {
     my $diffInSeconds = $now - $dt;
 
     # older than 24 hours
-    return $diffInSeconds > 0;
+    return $diffInSeconds > 86400;
 }
 
 requiredEnv("TOKEN", $TOKEN);
