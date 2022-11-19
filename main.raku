@@ -84,6 +84,7 @@ my LakeResponse $lakes = unmarshal($content, LakeResponse);
 
 my @messageItems = ();
 # filter lakes for feature: temperature
+@messageItems.push: "Aktuelle Wassertemperaturen:"
 for $lakes.lakes -> $lake {
     my $url = "https://$BASE_URL/lake/{$lake.id}/temperature?precision=2";
     my $response = HTTP::Tiny.new.get: $url;
@@ -97,6 +98,8 @@ for $lakes.lakes -> $lake {
     } else {
         @messageItems.push: "{$lake.name} {$item.preciseTemperature}°C";
     }
+    
+>>>>>>> e99d14b (Improve message format)
 }
 
 my $text = join("\n", @messageItems);
