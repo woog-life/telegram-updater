@@ -79,13 +79,13 @@ my $response = HTTP::Tiny.new.get: "https://$BASE_URL/lake";
 fail("failed to retrieve lakes", $response) unless $response<success>;
 
 my $content = $response<content>.decode;
-my LakeResponse $lakes = unmarshal($content, LakeResponse);
-
+my LakeResponse $lakeResponse = unmarshal($content, LakeResponse);
+my @lakes = $lakeResponse.lakes;
 
 my @messageItems = ();
-# filter lakes for feature: temperature
+
 @messageItems.push: "Aktuelle Wassertemperaturen:\n";
-for $lakes.lakes -> $lake {
+for @lakes -> $lake {
     my $url = "https://$BASE_URL/lake/{$lake.id}/temperature?precision=2";
     my $response = HTTP::Tiny.new.get: $url;
     fail("failed to retrieve {$lake.name} temperature", $response) unless $response<success>;
