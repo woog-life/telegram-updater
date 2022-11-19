@@ -100,7 +100,7 @@ for $lakes.lakes -> $lake {
 }
 
 my $text = join("\n", @messageItems);
-if $text === "" {
+if $text === "Aktuelle Wassertemperaturen:" {
     fail("fail: no message content")
 }
 
