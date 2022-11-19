@@ -22,6 +22,7 @@ configmap:
   name: telegram-updater
   notifierIds: "-1001397708243"
   alertIds: "139656428"
+  baseUrl: "api.woog.life"
 
 secret:
   name: telegram-updater-token
