@@ -86,7 +86,7 @@ my @messageItems = ();
 
 @messageItems.push: "Aktuelle Wassertemperaturen:\n";
 for @lakes -> $lake {
-    my $url = "https://$BASE_URL/lake/{$lake.id}/temperature?precision=2";
+    my $url = "https://$BASE_URL/lake/{$lake.id}/temperature?precision=2\&formatRegion=DE";
     my $response = HTTP::Tiny.new.get: $url;
     fail("failed to retrieve {$lake.name} temperature", $response) unless $response<success>;
 
