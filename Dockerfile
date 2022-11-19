@@ -2,11 +2,19 @@ FROM rakudo-star:2022.07-alpine
 
 WORKDIR /app
 
+RUN apk add openssl-dev git
+
+# raku needs a home directory
+RUN addgroup worker && \
+    adduser worker -G worker -s /bin/nologin -D -u 1001
+
 COPY main.raku main.raku
 
-RUN zef install HTTP::Tiny && \
-    zef install JSON::Unmarshal && \
-    zef install IO::Socket::SSL && \
-    zef install Env
+USER 1001
 
-ENTRYPOINT [ "rakudo", "main.raku" ]
+RUN zef install --force-install HTTP::Tiny && \
+    zef install --force-install JSON::Unmarshal && \
+    zef install --force-install Env && \
+    zef install --force-install IO::Socket::SSL
+
+ENTRYPOINT [ "rakudo", "--optimize=3", "--full-cleanup", "main.raku" ]
