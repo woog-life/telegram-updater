@@ -1,4 +1,4 @@
-FROM rakudo-star:2023.02-alpine
+FROM rakudo-star:2023.04-alpine
 
 WORKDIR /app
 
