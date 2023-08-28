@@ -5,6 +5,7 @@ cronjob:
   image: ghcr.io/woog-life/telegram-updater:__TAG__
   imagePullPolicy: Always
   schedule: "0 7 * * *"
+  timeZone: "Europe/Berlin"
   backoffLimit: 0
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 1
