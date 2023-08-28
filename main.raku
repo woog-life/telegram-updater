@@ -2,12 +2,12 @@ use Env;
 use HTTP::Tiny;
 use JSON::Unmarshal;
 
-enum Feature <temperature booking>;
+enum Feature <temperature tides>;
 
 class Lake {
     has Str $.id;
     has Str $.name;
-    has Array[Feature] $.supportedFeatures;
+    has Array $.features;
 }
 
 class LakeResponse {
@@ -18,6 +18,16 @@ class TemperatureItem {
     has Str $.time;
     has Int $.temperature;
     has Str $.preciseTemperature;
+}
+
+class TideInformation {
+    has Bool $.isHighTide;
+    has Str $.time;
+    has Str $.height;
+}
+
+class TideResponse {
+    has Array[TideInformation] $.extrema;
 }
 
 sub sendTelegramMessage($chatId, $data) {
@@ -70,6 +80,31 @@ sub isOldTemperature(TemperatureItem $item) {
     return $diffInSeconds > 86400;
 }
 
+sub getStartOfDay() {
+    return DateTime.now().utc.truncated-to("day");
+}
+
+sub getTideInformation(Lake $lake) {
+    my $sod = getStartOfDay();
+    my $url = "https://$BASE_URL/lake/{$lake.id}/tides?upcomingLimit=4\&at={$sod}";
+    my $response = HTTP::Tiny.new.get: $url;
+    fail("failed to retrieve {$lake.name} temperature", $response) unless $response<success>;
+
+    my $content = $response<content>.decode;
+    return unmarshal($content, TideResponse);
+}
+
+sub containsFeature(Lake $lake, Str $feature) {
+    my @features = $lake.features;
+    for @features -> $feat {
+        if $feature.contains($feat) {
+            return True;
+        }
+    }
+
+    return False;
+}
+
 requiredEnv("TOKEN", $TOKEN);
 requiredEnv("NOTIFIER_IDS", $NOTIFIER_IDS);
 requiredEnv("BASE_URL", $BASE_URL);
@@ -92,11 +127,26 @@ for @lakes -> $lake {
 
     my $content = $response<content>.decode;
     my TemperatureItem $item = unmarshal($content, TemperatureItem);
+    my Bool $supportsTides = containsFeature($lake, "tides");
 
-    if isOldTemperature($item) {
+    if isOldTemperature($item) && !$supportsTides {
         say "Skipping {$lake.name} due to the timestamp being too old - {$item.time}"
     } else {
-        @messageItems.push: "{$lake.name} {$item.preciseTemperature}°C";
+        if !isOldTemperature($item) {
+            @messageItems.push: "{$lake.name} {$item.preciseTemperature}°C";
+        }
+        if $supportsTides {
+            my $tideInformation = getTideInformation($lake);
+            my $*TZ = 3600;
+            for $tideInformation.extrema.tail(4) -> $info {
+                my $time = DateTime.new($info.time, formatter => {sprintf "%02d:%02d (%02d.%02d)", .hour, .minute, .day, .month}).local;
+                my Str $tideModifier = "NW";
+                if $info.isHighTide {
+                    $tideModifier = "HW";
+                }
+                @messageItems.push: "        {$time} {$tideModifier}";
+            }
+        }
     }
 }
 
