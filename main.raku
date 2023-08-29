@@ -137,7 +137,7 @@ for @lakes -> $lake {
         }
         if $supportsTides {
             my $tideInformation = getTideInformation($lake);
-            my $*TZ = 3600;
+            my $*TZ = 7200;
             for $tideInformation.extrema.tail(4) -> $info {
                 my $time = DateTime.new($info.time, formatter => {sprintf "%02d:%02d (%02d.%02d)", .hour, .minute, .day, .month}).local;
                 my Str $tideModifier = "NW";
